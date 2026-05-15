@@ -39,6 +39,9 @@ export default function Home() {
     fetchProducts(page);
     fetchCategories();
   }, [page]);
+  useEffect(() => {
+  console.log("BASE URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
+}, []);
 
   const fetchProducts = async (currentPage: number) => {
     try {

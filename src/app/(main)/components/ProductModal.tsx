@@ -41,6 +41,7 @@ export default function ProductModal({handleReload,updateData}:any){
     category:null,
     image: ""
   };
+  console.log("BASE URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
   useEffect(() => {
 
     const loadCategory = async () => {
