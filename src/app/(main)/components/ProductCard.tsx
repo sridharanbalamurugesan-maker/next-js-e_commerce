@@ -6,6 +6,7 @@ interface Product {
   description: string;
   price: number;
   image: string;
+  rating:number;
 }
 
 interface ProductCardProps {
@@ -42,6 +43,7 @@ export default function({product}:ProductCardProps){
       <h3 className="text-xl font-bold text-blue-600 mt-3">
         ₹{product.price}
       </h3>
+        <h3>Rating:{product.rating}</h3>
     </div>
     </>
 )

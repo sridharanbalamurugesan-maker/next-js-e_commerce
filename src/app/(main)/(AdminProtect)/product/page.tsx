@@ -16,6 +16,8 @@ export default function Product(){
         description:string;
         stocks:number;
         category:string;
+        brand:string;
+        isFreeShipping:boolean;
         image:File|string;
     }
     const [row,setRow]=useState<Product[]>([]);

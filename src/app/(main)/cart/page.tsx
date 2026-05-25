@@ -6,6 +6,7 @@ import { BsTrash } from "react-icons/bs";
 import { deleteById, getCartByUser } from "../utils/cartApi";
 import {failureLoader,getLoginData,successLoader} from "../utils/utils";
 import { makePayment } from "../utils/paymentApi";
+import { orderStatusChange } from "../utils/order";
 
 interface CartRow {
   id: string;
@@ -130,25 +131,51 @@ export default function Cart() {
           id: e.id,
         })),
       };
-      const res = await makePayment(payload);
-      console.log("Payment res",res);
-      if (res) {
-        const options = {
-       key: res.key, 
-        amount: res.amount, 
-        currency: res.currency,
-        name: 'Payment Gatway',
-        description: 'Test Transaction',
-        order_id:res.order_id, 
-        prefill: {
-          name: 'Gaurav Kumar',
-          email: 'gaurav.kumar@example.com',
-          contact: '9999999999'
-        },
-        theme: {
-          color: '#F37254'
-        },
-      };
+      const paymentRes = await makePayment(payload);
+       console.log("Payment Response", paymentRes);
+       const options = {
+
+   key: paymentRes.key,
+
+   amount: paymentRes.amount,
+
+   currency: paymentRes.currency,
+
+   name: 'Payment Gateway',
+
+   description: 'Test Transaction',
+
+   order_id: paymentRes.order_id,
+
+   handler: async function (response:any){
+
+      console.log("Razorpay Response", response);
+
+      console.log("Mongo IDs", paymentRes.mongoOrderId);
+
+      for(let id of paymentRes.mongoOrderId){
+
+         await orderStatusChange(id,{
+            status:"completed"
+         });
+
+      }
+
+      successLoader("Payment Success");
+      fetchCart();
+      
+   },
+
+   prefill: {
+      name: 'Gaurav Kumar',
+      email: 'gaurav.kumar@example.com',
+      contact: '9999999999'
+   },
+
+   theme: {
+      color: '#F37254'
+   },
+};
       const rzp = new window.Razorpay(options);
       rzp.open();
 
@@ -158,7 +185,7 @@ export default function Cart() {
 
         setSelectedData([]);
         
-      }
+      
 
     } catch (error: any) {
 

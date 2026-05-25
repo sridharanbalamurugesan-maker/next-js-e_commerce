@@ -17,13 +17,25 @@ export default function ProductModal({handleReload,updateData}:any){
         description:string;
         stocks:number|string;
         category:CategoryOption|null;
+        brand:string;
+        isFreeShipping:boolean;
         image:File|string|null;
     }
     interface CategoryOption{
     id:string;
     name:string;
 }
-    const [ProductData,setProductData]=useState<Product|null>(null)
+ const initialValues:Product = {
+    name: "",
+    price:"",
+    description: "",
+    stocks:"",
+    category:null,
+    brand:"",
+    isFreeShipping:false,
+    image: ""
+  };
+    const [ProductData,setProductData]=useState<Product>(initialValues)
    const [categories,setCategories]=useState<CategoryOption[]>([])
     const validationSchema=Yup.object({
         name:Yup.string().required("Enter the Product Name"),
@@ -31,16 +43,10 @@ export default function ProductModal({handleReload,updateData}:any){
         description:Yup.string().required("Enter the description"),
         stocks:Yup.number().required("Enter the stocks"),
         category:Yup.object().required("select the category"),
+        brand:Yup.string().required("Enter the Brand"),
         image:Yup.mixed().required("Insert A Image")
     })
-      const initialValues:Product = {
-    name: "",
-    price:"",
-    description: "",
-    stocks:"",
-    category:null,
-    image: ""
-  };
+     
   console.log("BASE URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
   useEffect(() => {
 
@@ -72,6 +78,8 @@ useEffect(()=>{
                 description:updateData.description,
                 stocks:updateData.stocks,
                 category: updateData?.category?{name: updateData.category.name,id: updateData.category._id}:null,
+                brand:updateData.brand,
+                isFreeShipping:updateData.isFreeShipping,
                 image:null
             })
         }
@@ -82,6 +90,8 @@ useEffect(()=>{
                 description:"",
                 stocks:"",
                 category:null,
+                brand:"",
+                isFreeShipping:false,
                 image:null
             })
         }
@@ -94,6 +104,8 @@ useEffect(()=>{
             formData.append("description",values.description);
             formData.append("stocks",values.stocks);
             formData.append("category",values.category.id);
+            formData.append("brand",values.brand);
+            formData.append("isFreeShipping",values.isFreeShipping.toString());
             if(values.image){
             formData.append("image",values.image);
         }
@@ -107,6 +119,10 @@ useEffect(()=>{
         if(response.success===true){
             handleReload();
             successLoader(response.message);
+            const modal = document.getElementById(
+                    "my_modal_2"
+                    ) as HTMLDialogElement;
+                    modal.close();
         }
         else{
             failureLoader(response.message);
@@ -163,6 +179,40 @@ useEffect(()=>{
                     />
                     <ErrorMessage name="stocks" component="div" className="text-red-500 text-sm mt-1" />
                     </div>
+                     <div>
+                     <label className="block mb-2 font-medium">
+                      Brand
+                     </label>
+                    <Field type="text" name="brand" placeholder="Enter the BrandName"
+                     className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                    />
+                    <ErrorMessage name="brand" component="div" className="text-red-500 text-sm mt-1" />
+                    </div>
+                     <div>
+                     <label className="block mb-2 font-medium">
+                      Free Shipping
+                     </label>
+
+                     <label  className="flex items-center gap-3 cursor-pointer">
+                    <Field name="isFreeShipping">
+                            {({ field, form }: any) => (
+                                <input
+                                type="checkbox"
+                                className="toggle toggle-primary"
+                                checked={field.value || false}
+                                onChange={(e) =>
+                                    form.setFieldValue(
+                                    "isFreeShipping",
+                                    e.target.checked
+                                    )
+                                }
+                                />
+                            )}
+                      </Field>
+                     <span>Available </span>  
+                     </label> 
+                    <ErrorMessage name="isFreeShipping" component="div" className="text-red-500 text-sm mt-1" />
+                    </div>
                     <div>
                         <label className="block mb-2 font-medium">
                       Category
@@ -174,7 +224,7 @@ useEffect(()=>{
                 isOptionEqualToValue={(option, value) =>
                     option.id === value.id
                 }
-                value={values.category}
+                value={values.category || null}
                 onChange={(event, newValue) => {
                     setFieldValue("category", newValue);
                 }}

@@ -26,3 +26,29 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* @media print {
+            :is(.radio:checked,.radio[aria-checked=true]):before {
+                outline-offset: -1rem;
+                outline: .25rem solid
+            }
+        }
+
+        .rating {
+            vertical-align: middle;
+            display: inline-flex;
+            position: relative
+        }
+
+        .rating input {
+            appearance: none;
+            border: none
+        }
+
+        .rating :where(*) {
+           background-color: #f59e0b;
+            opacity: 1;
+            border-radius: 0;
+            width: 1.5rem;
+            height: 1.5rem
+        }
+       */

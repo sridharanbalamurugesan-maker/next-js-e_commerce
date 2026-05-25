@@ -5,6 +5,7 @@ import { getLoginData } from "../utils/utils";
 import { getAllProduct } from "../utils/productApi";
 import { getAllCategory } from "../utils/categoryApi";
 import ProductCard from "../components/ProductCard";
+import FilterSidebar from "../components/FilterSidebar";
 
 
 interface Category {
@@ -19,6 +20,7 @@ interface Product {
   description: string;
   stocks: number;
   image: string;
+  rating:number;
 
   category: {
     _id: string;
@@ -30,6 +32,7 @@ export default function Home() {
   const [products, setProduct] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
@@ -67,12 +70,21 @@ export default function Home() {
   const filteredProducts = selectedCategory
     ? products.filter((p) => p.category._id === selectedCategory)
     : products;
+     
+    const handleOpen=()=>{
+        const modal = document.getElementById("my_modal_2") as HTMLDialogElement;
+                modal?.showModal();
+    }
 
   return (
     <div className="p-5">
 
       <div className="mb-5">
-    <h2 className="text-3xl font-bold mb-5"> Home</h2>
+        <div className="flex items-center justify-between mb-5">
+            <h2 className="text-3xl font-bold mb-5"> Home</h2>
+            <button className="btn btn-primary" onClick={handleOpen}>Filter</button>
+        </div>
+    
         <div className="flex flex-wrap gap-3">
           <button
             className={`px-4 py-2 rounded border ${
@@ -124,10 +136,11 @@ export default function Home() {
           ))}
 
         </div>
-
-        <div
-          className="mt-8 flex gap-3 justify-center"
-        >
+          <FilterSidebar
+          setProduct={setProduct}
+          setTotalPage={setTotalPage}/>
+       {totalPage > 1 &&  (
+  <div className="mt-8 flex gap-3 justify-center">
 
           <button
             disabled={page === 1}
@@ -160,7 +173,7 @@ export default function Home() {
           </button>
 
         </div>
-
+       )}
       </div>
     </div>
   );

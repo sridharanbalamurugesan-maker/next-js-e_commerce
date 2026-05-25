@@ -12,6 +12,8 @@ import {
 } from "../../utils/utils";
 import { productView } from "@/app/(main)/utils/productApi";
 import { addToCart } from "../../utils/cartApi";
+import ReviewModal from "../../components/ReviewModal";
+import ViewReview from "../../viewReview/page";
 
 interface Product {
   _id: string;
@@ -20,6 +22,7 @@ interface Product {
   price: number;
   stocks: number;
   image: string;
+  rating:number;
 }
 
 export default function ProductView() {
@@ -32,10 +35,11 @@ export default function ProductView() {
   const [product, setProduct] = useState<Product | null>(null);
 
   const [quantity, setQuantity] = useState<number>(0);
+  const [rating, setRating] = useState(5);
 
   useEffect(() => {
     fetchProductView();
-  }, []);
+  }, [rating]);
 
   const fetchProductView = async () => {
 
@@ -109,6 +113,14 @@ export default function ProductView() {
 
     }
   };
+  const handleModal=()=>{
+     const modal = document.getElementById("my_modal_2") as HTMLDialogElement;
+                modal?.showModal();
+  }
+
+  const handleView=()=>{
+    router.push(`/viewReview?productId=${product._id}`);
+  }
 
   return (
     <div className="flex justify-center items-center p-8">
@@ -137,6 +149,10 @@ export default function ProductView() {
 
           <h3 className="text-2xl font-bold text-blue-600">
             ₹ {Number(product.price)}
+          </h3>
+          Rating:{product.rating}
+          <h3>
+
           </h3>
 
           <div className="flex items-center gap-3">
@@ -185,7 +201,16 @@ export default function ProductView() {
           >
             Add to Cart
           </button>
-
+          {/* <button className="bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+          onClick={handleModal}>
+            Review</button> */}
+             <button className="bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+          onClick={handleView}>
+            view Review</button>
+            <ReviewModal
+            productId={product._id}
+            setRating={setRating}
+            rating={rating}/>
         </div>
 
       </div>

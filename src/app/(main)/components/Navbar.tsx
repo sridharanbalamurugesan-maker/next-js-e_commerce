@@ -29,6 +29,12 @@ export default function navbar(){
   const handleCart=()=>{
     router.push('/cart');
   }
+  const handleMyOrders=()=>{
+    router.push('/myOrders')
+  }
+  const handleUsers=()=>{
+    router.push('/users')
+  }
     return(<>
     <div className="navbar bg-base-100 shadow-sm">
   <div className="flex-1">
@@ -40,6 +46,7 @@ export default function navbar(){
       <>
       <li><button onClick={handleClick}>Category</button></li>
       <li><button onClick={handleProduct}>Product</button></li>
+      <li><button onClick={handleUsers}>users</button></li>
      </>
     )}
   </ul>
@@ -79,6 +86,7 @@ export default function navbar(){
             <span className="badge">New</span>
           </a>
         </li>
+        <li><button onClick={handleMyOrders}>orders</button></li>
         <li><button onClick={handleSetting}>Settings</button></li>
         <li><button onClick={handleLogout}>Logout</button></li>
       </ul>
