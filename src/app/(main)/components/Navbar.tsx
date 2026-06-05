@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { getLoginData, removeLoginData } from "../utils/utils"
 import { useEffect, useState } from "react";
+import SupportModal from "./SupportModal";
 
 export default function navbar(){
   const router=useRouter();
@@ -35,6 +36,20 @@ export default function navbar(){
   const handleUsers=()=>{
     router.push('/users')
   }
+  const handleChat=()=>{
+      const modal = document.getElementById("support") as HTMLDialogElement;
+                modal?.showModal();
+  }
+  const handleTicket=()=>{
+    router.push('/ticket');
+  }
+  const handleView=()=>{
+    router.push('/viewTickets');
+  }
+  const handlePassword=()=>{
+    router.push('/resetPassword');
+  }
+
     return(<>
     <div className="navbar bg-base-100 shadow-sm">
   <div className="flex-1">
@@ -42,11 +57,17 @@ export default function navbar(){
   <div tabIndex={0} role="button" className="btn m-1">menu</div>
   <ul tabIndex={-1} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
      <li><button onClick={handleHome}>Home</button></li>
+     {userData?.role=="69e08e7c2d1e81b6cc670c3c"&&(
+      <>
+      <li><button onClick={handleTicket}>My Ticket</button></li>
+      </>
+     )}
      {userData?.role=="69e08e6d2d1e81b6cc670c3b"&&(
       <>
       <li><button onClick={handleClick}>Category</button></li>
       <li><button onClick={handleProduct}>Product</button></li>
       <li><button onClick={handleUsers}>users</button></li>
+      <li><button onClick={handleView}>view Tickets</button></li>
      </>
     )}
   </ul>
@@ -87,10 +108,13 @@ export default function navbar(){
           </a>
         </li>
         <li><button onClick={handleMyOrders}>orders</button></li>
+        <li><button onClick={handleChat}>support As</button></li>
+        <li><button onClick={handlePassword}>change Password</button></li>
         <li><button onClick={handleSetting}>Settings</button></li>
         <li><button onClick={handleLogout}>Logout</button></li>
       </ul>
     </div>
+    <SupportModal/>
   </div>
 </div></>)
 }

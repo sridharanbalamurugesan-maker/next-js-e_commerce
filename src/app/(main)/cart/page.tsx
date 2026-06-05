@@ -86,7 +86,7 @@ export default function Cart() {
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string) =>{
 
     try {
 

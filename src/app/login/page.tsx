@@ -3,13 +3,10 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
-
 import { login } from "../(main)/utils/AuthApi";
-import {
-  failureLoader,
-  setLoginData,
-  successLoader,
-} from "../(main)/utils/utils";
+import {failureLoader,setLoginData,successLoader} from "../(main)/utils/utils";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 interface LoginFormValues {
   email: string;
@@ -18,6 +15,7 @@ interface LoginFormValues {
 const Login = () => {
 
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   const initialValues: LoginFormValues = {
     email: "",
@@ -46,6 +44,9 @@ const Login = () => {
       failureLoader(error.message);
     }
   };
+  const ForgotPassword=()=>{
+      router.push('/forgotPassword');
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -58,7 +59,7 @@ const Login = () => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}>
-            
+
           <Form className="space-y-5">
 
          <div>
@@ -72,17 +73,21 @@ const Login = () => {
               <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-              <label className="block mb-2 font-medium">
+             <label className="block mb-2 font-medium">
                 Password
-              </label>
+             </label>
+             <div className="relative">
+                <Field type={showPassword ? "text" : "password"}name="password" placeholder="Enter the password"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 pr-12 outline-none focus:border-blue-500"
+                />
+                <button type="button" onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                >
+                {showPassword ? (<FaEyeSlash size={18}/>) : (<FaEye size={18}/>)}
+                </button>
+            </div>
 
-              <Field type="password" name="password" placeholder="Enter the password"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
-              />
-
-              <ErrorMessage name="password" component="div"
-                className="text-red-500 text-sm mt-1"
-              />
+            <ErrorMessage name="password" component="div"className="text-red-500 text-sm mt-1"/>
             </div>
             <button
               type="submit"
@@ -101,6 +106,11 @@ const Login = () => {
           </Form>
 
         </Formik>
+                <div className="text-right mt-2">
+                <h4 className="text-blue-600 text-sm cursor-pointer hover:underline" onClick={ForgotPassword}>
+                    Forgot password?
+                </h4>
+                </div>
 
       </div>
 
