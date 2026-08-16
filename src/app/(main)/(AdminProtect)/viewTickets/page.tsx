@@ -12,16 +12,16 @@ export default function ViewTickets(){
     const columns:GridColDef[]=[
         {field:"user",headerName:"User Name",width:200,renderCell:({ row }) => row.user?.name},
         {field:"subject",headerName:"Subject",width:300},
-        {field:"status",headerName:"Status",width:100,renderCell:({ row }) => {
+        {field:"status",headerName:"Status",width:140,renderCell:({ row }) => {
             return (
             <span
-                className={`px-3 py-1 rounded-full text-white text-sm
+                className={`px-3 py-1 rounded-sm text-white text-xs font-semibold
                 ${
                     row.status === "open"
-                    ? "bg-green-500"
+                    ? "bg-[#10b981]"
                     : row.status === "pending"
-                    ? "bg-red-500"
-                    : "bg-gray-500"
+                    ? "bg-[#f59e0b]"
+                    : "bg-[#64748b]"
                 }`}
             >
                 {row.status}
@@ -29,7 +29,7 @@ export default function ViewTickets(){
             );
   }},
         {field:"chat",headerName:"Chat As",width:200,renderCell:(params)=>(
-        <button className="btn btn-primary" style={{cursor:"pointer"}} onClick={()=>{handleChat(params.row)}} >Chat</button>
+        <button className="btn btn-primary btn-sm" style={{cursor:"pointer"}} onClick={()=>{handleChat(params.row)}} >Chat</button>
         )},
     ]
     const handleChat=async(row:any)=>{
@@ -52,17 +52,39 @@ export default function ViewTickets(){
     },[])
     return(
     <>
-    <h3 className="text-3xl font-bold mb-6 text-center">
-            All Tickets
-    </h3>
-    <AdminChatModal
-    ticket={selectedTicket}
-    />
-     <DataGrid
-        rows={row}
-        columns={columns}
-        getRowId={(row) => row._id}
-        pageSizeOptions={[5,10,100]}/>
+    <div className="p-4 bg-[#f8fafc] min-h-[calc(100vh-56px)]">
+      <div className="max-w-[1240px] mx-auto bg-white">
+        <div className="px-5 py-4 border-b border-[#f0f0f0]">
+          <h3 className="text-lg font-medium">
+                  All Tickets
+          </h3>
+        </div>
+        <AdminChatModal
+        ticket={selectedTicket}
+        />
+        <div className="p-2">
+         <DataGrid
+            rows={row}
+            columns={columns}
+            getRowId={(row) => row._id}
+            pagination
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+            }}
+            pageSizeOptions={[10]}
+            autoHeight
+            sx={{
+              border: "none",
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: "#f5f5f5",
+                fontWeight: 600,
+              },
+            }}/>
+        </div>
+      </div>
+    </div>
     </>
     )
 }

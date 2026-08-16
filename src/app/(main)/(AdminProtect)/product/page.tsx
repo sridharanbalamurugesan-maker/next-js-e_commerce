@@ -24,7 +24,7 @@ export default function Product(){
     const [updateData,setUpdateData]=useState<Product|null>(null);
     const [reload,setReload]=useState(false);
     const [page, setPage] = useState(0);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(10);
     const [rowCount, setRowCount] = useState(0);
 
     useEffect(()=>{
@@ -33,7 +33,7 @@ export default function Product(){
                 const response=await getAllProduct(page+1,pageSize);
                 if(response.success==true){
                     setRow(response.data);
-                    setRowCount(response.total||0);
+                    setRowCount(response.pagination?.totalRecord||response.total||0);
                     return;
                 }
             } catch (error:any) {
@@ -54,7 +54,7 @@ export default function Product(){
             style={{width:50,height:50,objectFit:"cover"}} />
         )},
         {field:"edit",headerName:"Edit",width:120,renderCell:(params)=>(
-        <BsPencilFill className="text-blue-500 cursor-pointer text-lg" style={{cursor:"pointer"}}  onClick={() => handleUpdate(params.row)}/>
+        <BsPencilFill className="text-[#6366f1] cursor-pointer text-lg" style={{cursor:"pointer"}}  onClick={() => handleUpdate(params.row)}/>
                     )},
         {field:"delete",headerName:"Detele",width:120,renderCell: (params) => (
               <BsTrash className="text-red-500 cursor-pointer text-lg" style={{cursor:"pointer"}} onClick={() => handleDelete(params.row._id)}/>)}         
@@ -87,20 +87,23 @@ export default function Product(){
             setReload((prev)=>!prev)
         }
     return(
-    <div className="w-full p-5">
-    <div className="flex items-center justify-between w-full mb-5">
-        <h2 className="text-2xl font-bold">Product</h2>
+    <div className="w-full p-4 bg-[#f8fafc] min-h-[calc(100vh-56px)]">
+    <div className="max-w-[1240px] mx-auto bg-white">
+    <div className="flex items-center justify-between w-full px-5 py-4 border-b border-[#f0f0f0]">
+        <h2 className="text-lg font-medium">Product</h2>
         <button className="btn btn-primary" onClick={handleModal}>Add Product</button>
     </div>
     <ProductModal
     handleReload={handleReload}
     updateData={updateData}/>
+    <div className="p-2">
     <DataGrid
     rows={row}
     columns={columns}
     getRowId={(row) => row._id}
     pagination
     paginationMode="server"
+    autoHeight
 
     rowCount={rowCount||0}
 
@@ -114,8 +117,16 @@ export default function Product(){
         setPageSize(model.pageSize);
     }}
 
-    pageSizeOptions={[5,10,100]}>
+    pageSizeOptions={[10]}
+    sx={{
+      border: "none",
+      "& .MuiDataGrid-columnHeaders": {
+        backgroundColor: "#f5f5f5",
+        fontWeight: 600,
+      },
+    }}>
     </DataGrid>
-    <h2>Product</h2>
+    </div>
+    </div>
     </div>)
 }

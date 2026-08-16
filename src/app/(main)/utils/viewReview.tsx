@@ -5,6 +5,7 @@ export const  getProductReviews=async(id:string)=>{
     try {
         data=await axiosGet(`/reviews/get-all-review/${id}`);
     } catch (error) {
+        console.log("getProductReviews error", error);
         return false;
     }
     return data?.data;

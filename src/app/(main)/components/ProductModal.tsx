@@ -134,8 +134,8 @@ useEffect(()=>{
     return(
     <>
     <dialog id="my_modal_2" className="modal">
-      <div className="modal-box">
-        <h3 className="font-bold text-lg">Add Product</h3>
+      <div className="modal-box rounded-sm">
+        <h3 className="font-medium text-lg text-[#0f172a] mb-4">Add Product</h3>
         <Formik
         initialValues={ProductData||initialValues}
         validationSchema={validationSchema}
@@ -144,52 +144,52 @@ useEffect(()=>{
              {({ setFieldValue,values }) => (
             <Form className="space-y-5">
                      <div>
-                     <label className="block mb-2 font-medium">
+                     <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                       Product Name
                      </label>
                     <Field type="text" name="name" placeholder="Enter the categoryName"
-                     className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                     className="fk-input"
                     />
                     <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
                     </div> 
                     <div>
-                     <label className="block mb-2 font-medium">
+                     <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                       Price
                      </label>
                     <Field type="text" name="price" placeholder="Enter the categoryName"
-                     className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                     className="fk-input"
                     />
                     <ErrorMessage name="price" component="div" className="text-red-500 text-sm mt-1" />
                     </div> 
                     <div>
-                     <label className="block mb-2 font-medium">
+                     <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                       description
                      </label>
                     <Field type="text" name="description" placeholder="Enter the description"
-                     className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                     className="fk-input"
                     />
                     <ErrorMessage name="description" component="div" className="text-red-500 text-sm mt-1" />
                     </div>
                     <div>
-                     <label className="block mb-2 font-medium">
+                     <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                       Stocks
                      </label>
                     <Field type="text" name="stocks" placeholder="Enter the categoryName"
-                     className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                     className="fk-input"
                     />
                     <ErrorMessage name="stocks" component="div" className="text-red-500 text-sm mt-1" />
                     </div>
                      <div>
-                     <label className="block mb-2 font-medium">
+                     <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                       Brand
                      </label>
                     <Field type="text" name="brand" placeholder="Enter the BrandName"
-                     className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                     className="fk-input"
                     />
                     <ErrorMessage name="brand" component="div" className="text-red-500 text-sm mt-1" />
                     </div>
                      <div>
-                     <label className="block mb-2 font-medium">
+                     <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                       Free Shipping
                      </label>
 
@@ -214,7 +214,7 @@ useEffect(()=>{
                     <ErrorMessage name="isFreeShipping" component="div" className="text-red-500 text-sm mt-1" />
                     </div>
                     <div>
-                        <label className="block mb-2 font-medium">
+                        <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                       Category
                      </label>                   
                      <Autocomplete
@@ -238,11 +238,11 @@ useEffect(()=>{
         <ErrorMessage name="categoryName" component="div" className="error"/>
       </div>
                     <div>
-                     <label className="block mb-2 font-medium">
+                     <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                       image
                      </label>
                     <input type="file" name="image" placeholder="Insert a Image"
-                     className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                     className="w-full border border-[#e2e8f0] px-3 py-2 text-sm"
                      onChange={(event) => {
                      setFieldValue("image", event.currentTarget.files?.[0]);
                       }}
@@ -251,7 +251,7 @@ useEffect(()=>{
                     </div>
                     <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+                  className="fk-orange-btn w-full py-3 text-sm"
                 >
                   submit
                 </button>

@@ -1,9 +1,16 @@
 import { axiosDelete, axiosGet, axiosPost, axiosPut } from "./Api";
 
-export const getAllProduct=async(page=1,limit=5)=>{
+export const getAllProduct=async(page=1,limit=8,category?:string|null,search?:string|null)=>{
     let data;
     try {
-        data=await axiosGet(`/product/get-all-product?page=${page}&limit=${limit}`);
+        let url=`/product/get-all-product?page=${page}&limit=${limit}`;
+        if(category){
+            url+=`&category=${category}`;
+        }
+        if(search){
+            url+=`&search=${encodeURIComponent(search)}`;
+        }
+        data=await axiosGet(url);
     } catch (error) {
         return false
     }

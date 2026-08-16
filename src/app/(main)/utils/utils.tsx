@@ -48,3 +48,47 @@ export const removeLoginData=()=>{
         return null;
     }
 }
+
+export const CART_UPDATED_EVENT = "cart-updated";
+export const HOME_RESET_EVENT = "home-reset";
+export const SEARCH_CLEARED_EVENT = "search-cleared";
+export const PROFILE_UPDATED_EVENT = "profile-updated";
+
+export const DEFAULT_PROFILE_IMAGE =
+  "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp";
+
+export const getProfileImageUrl = (image?: string | null) => {
+    const trimmed = typeof image === "string" ? image.trim() : "";
+    if (!trimmed) {
+        return DEFAULT_PROFILE_IMAGE;
+    }
+    if (trimmed.startsWith("http")) {
+        return trimmed;
+    }
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+    return `${baseUrl}/${trimmed}`;
+}
+
+export const notifyProfileUpdated = () => {
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event(PROFILE_UPDATED_EVENT));
+    }
+}
+
+export const notifySearchCleared = () => {
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event(SEARCH_CLEARED_EVENT));
+    }
+}
+
+export const notifyHomeReset = () => {
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event(HOME_RESET_EVENT));
+    }
+}
+
+export const notifyCartUpdated = () => {
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event(CART_UPDATED_EVENT));
+    }
+}

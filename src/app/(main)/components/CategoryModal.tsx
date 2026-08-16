@@ -72,8 +72,8 @@ export default function CategoryModal({handleReload,updateData}:any){
     return(
     <>
 <dialog id="my_modal_2" className="modal">
-  <div className="modal-box">
-    <h3 className="font-bold text-lg">Add category</h3>
+  <div className="modal-box rounded-sm">
+    <h3 className="font-medium text-lg text-[#0f172a] mb-4">Add category</h3>
     <Formik
     initialValues={categoryData||initialValues}
     validationSchema={validationSchema}
@@ -82,29 +82,29 @@ export default function CategoryModal({handleReload,updateData}:any){
          {({ setFieldValue }) => (
         <Form className="space-y-5">
                  <div>
-                 <label className="block mb-2 font-medium">
+                 <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                   Category Name
                  </label>
                 <Field type="text" name="categoryName" placeholder="Enter the categoryName"
-                 className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                 className="fk-input"
                 />
                 <ErrorMessage name="categoryName" component="div" className="text-red-500 text-sm mt-1" />
                 </div> 
                 <div>
-                 <label className="block mb-2 font-medium">
+                 <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                   description
                  </label>
                 <Field type="text" name="description" placeholder="Enter the description"
-                 className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                 className="fk-input"
                 />
                 <ErrorMessage name="description" component="div" className="text-red-500 text-sm mt-1" />
                 </div>
                 <div>
-                 <label className="block mb-2 font-medium">
+                 <label className="block mb-1 text-xs text-[#64748b] uppercase tracking-wide">
                   image
                  </label>
                 <input type="file" name="image" placeholder="Insert a Image"
-                 className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+                 className="w-full border border-[#e2e8f0] px-3 py-2 text-sm"
                  onChange={(event) => {
                  setFieldValue("image", event.currentTarget.files?.[0]);
                   }}
@@ -113,7 +113,7 @@ export default function CategoryModal({handleReload,updateData}:any){
                 </div>
                 <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+              className="fk-orange-btn w-full py-3 text-sm"
             >
               submit
             </button>

@@ -20,30 +20,37 @@ export default function({product}:ProductCardProps){
     return(
     <>
      <div
-      className="border rounded-lg p-4 shadow-md cursor-pointer hover:shadow-lg transition duration-300 w-[250px]"
+      className="bg-white p-3 cursor-pointer hover:shadow-lg transition duration-200 w-full h-full"
       onClick={handleClick}
     >
 
-      <img
-        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${product.image}`}
-        alt={product.name}
-        width={250}
-        height={150}
-        className="w-full h-[150px] object-cover rounded-md"
-      />
+      <div className="h-[180px] flex items-center justify-center mb-3">
+        <img
+          src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${product.image}`}
+          alt={product.name}
+          width={250}
+          height={150}
+          className="max-h-[180px] w-auto object-contain"
+        />
+      </div>
 
-      <h4 className="text-lg font-semibold mt-3">
+      <h4 className="text-sm text-[#0f172a] font-medium line-clamp-2 min-h-[40px]">
         {product.name}
       </h4>
 
-      <p className="text-gray-600 mt-2">
+      <p className="text-xs text-[#64748b] mt-1 line-clamp-2">
         {product.description}
       </p>
 
-      <h3 className="text-xl font-bold text-blue-600 mt-3">
+      <div className="flex items-center gap-2 mt-2">
+        <span className="inline-flex items-center gap-0.5 bg-[#10b981] text-white text-[12px] font-semibold px-1.5 py-0.5 rounded-sm">
+          {product.rating || 0} ★
+        </span>
+      </div>
+
+      <h3 className="text-lg font-semibold text-[#0f172a] mt-2">
         ₹{product.price}
       </h3>
-        <h3>Rating:{product.rating}</h3>
     </div>
     </>
 )

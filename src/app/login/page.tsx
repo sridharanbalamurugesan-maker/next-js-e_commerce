@@ -49,39 +49,42 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#f8fafc] px-4 py-10">
 
-      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+      <div className="w-full max-w-[800px] flex flex-col md:flex-row shadow-lg overflow-hidden">
 
-     <h2 className="text-3xl font-bold text-center mb-8"> Login Page </h2>
+        <div className="bg-[#6366f1] text-white p-8 md:w-[340px] flex flex-col justify-between min-h-[420px]">
+          <div>
+            <h2 className="text-3xl font-medium mb-4">Login</h2>
+            <p className="text-[#c7d2fe] text-lg leading-7">
+              Get access to your Orders, Wishlist and Recommendations
+            </p>
+          </div>
+          <p className="italic font-extrabold text-2xl mt-10">Grabbuy</p>
+        </div>
+
+        <div className="flex-1 bg-white p-8 md:p-10">
 
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}>
 
-          <Form className="space-y-5">
+          <Form className="space-y-6">
 
          <div>
-              <label className="block mb-2 font-medium">
-                Email
-              </label>
-
-             <Field type="email" name="email" placeholder="Enter the email"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-blue-500"
+             <Field type="email" name="email" placeholder="Enter Email / Mobile number"
+                className="fk-input"
              />
               <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-             <label className="block mb-2 font-medium">
-                Password
-             </label>
              <div className="relative">
-                <Field type={showPassword ? "text" : "password"}name="password" placeholder="Enter the password"
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 pr-12 outline-none focus:border-blue-500"
+                <Field type={showPassword ? "text" : "password"}name="password" placeholder="Enter Password"
+                className="fk-input pr-10"
                 />
                 <button type="button" onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-[#6366f1] text-sm font-medium"
                 >
                 {showPassword ? (<FaEyeSlash size={18}/>) : (<FaEye size={18}/>)}
                 </button>
@@ -89,28 +92,33 @@ const Login = () => {
 
             <ErrorMessage name="password" component="div"className="text-red-500 text-sm mt-1"/>
             </div>
+            <p className="text-xs text-[#64748b]">
+              By continuing, you agree to Grabbuy&apos;s Terms of Use and Privacy Policy.
+            </p>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+              className="fk-orange-btn w-full py-3 text-sm"
             >
               Login
             </button>
             <button
               type="button"
               onClick={() => router.push("/register")}
-              className="w-full border border-blue-600 text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition duration-300"
+              className="w-full bg-white text-[#6366f1] py-3 text-sm font-medium shadow-[0_2px_4px_0_rgba(0,0,0,.2)]"
             >
-              Register
+              New to Grabbuy? Create an account
             </button>
 
           </Form>
 
         </Formik>
-                <div className="text-right mt-2">
-                <h4 className="text-blue-600 text-sm cursor-pointer hover:underline" onClick={ForgotPassword}>
+                <div className="text-right mt-4">
+                <h4 className="text-[#6366f1] text-sm cursor-pointer font-medium" onClick={ForgotPassword}>
                     Forgot password?
                 </h4>
                 </div>
+
+      </div>
 
       </div>
 

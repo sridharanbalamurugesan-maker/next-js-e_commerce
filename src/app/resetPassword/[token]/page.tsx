@@ -80,8 +80,8 @@ export default function ResetPassword() {
 
   if (!isValid) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <h2 className="text-lg font-semibold">
+      <div className="flex justify-center items-center min-h-screen bg-[#f8fafc]">
+        <h2 className="text-lg font-medium text-[#64748b]">
           Checking reset link...
         </h2>
       </div>
@@ -89,23 +89,30 @@ export default function ResetPassword() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-[#f8fafc] px-4">
+      <div className="w-full max-w-[800px] flex flex-col md:flex-row shadow-lg overflow-hidden">
+        <div className="bg-[#6366f1] text-white p-8 md:w-[340px] flex flex-col justify-between min-h-[360px]">
+          <div>
+            <h2 className="text-3xl font-medium mb-4">Reset Password</h2>
+            <p className="text-[#c7d2fe] text-lg leading-7">
+              Set a new password for your Grabbuy account
+            </p>
+          </div>
+          <p className="italic font-extrabold text-2xl mt-10">Grabbuy</p>
+        </div>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-bold text-center mb-6">
-            Reset Password
-          </h2>
+        <Form className="flex-1 bg-white p-8 md:p-10">
 
           <div className="mb-4">
             <Field
               type="password"
               name="password"
               placeholder="New Password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3"
+              className="fk-input"
             />
 
             <ErrorMessage
@@ -120,7 +127,7 @@ export default function ResetPassword() {
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3"
+              className="fk-input"
             />
 
             <ErrorMessage
@@ -132,12 +139,13 @@ export default function ResetPassword() {
 
           <button
             type="submit"
-            className="btn btn-primary w-full"
+            className="fk-orange-btn w-full py-3 text-sm"
           >
             Reset Password
           </button>
         </Form>
       </Formik>
+      </div>
     </div>
   );
 }

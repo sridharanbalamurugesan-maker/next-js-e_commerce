@@ -37,9 +37,9 @@ export default function ChatModal() {
   return (
     <>
       <dialog id="support" className="modal">
-        <div className="modal-box w-11/12 max-w-2xl rounded-2xl p-8">
-          <h3 className="text-3xl font-bold mb-6 text-center">
-            Chat Support
+        <div className="modal-box w-11/12 max-w-2xl rounded-sm p-8">
+          <h3 className="text-xl font-medium mb-6 text-[#0f172a]">
+            Help Centre
           </h3>
           <div className="mb-4">
             <label className="label">
@@ -108,7 +108,7 @@ export default function ChatModal() {
 
           <div className="flex justify-end gap-4">
 
-            <button className="btn btn-primary px-8" onClick={handleClick}>
+            <button className="fk-orange-btn px-8 py-2.5 text-sm" onClick={handleClick}>
               Submit
             </button>
 

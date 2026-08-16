@@ -56,14 +56,14 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-[calc(100vh-56px)] bg-[#f8fafc] p-4">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-bold text-center mb-6">
+        <Form className="w-full max-w-md bg-white p-8 shadow-sm">
+          <h2 className="text-lg font-medium mb-6">
             Change Password
           </h2>
 
@@ -72,7 +72,7 @@ export default function ResetPassword() {
               type="password"
               name="oldPassword"
               placeholder="Old Password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3"
+              className="fk-input"
             />
             <ErrorMessage
               name="oldPassword"
@@ -86,7 +86,7 @@ export default function ResetPassword() {
               type="password"
               name="password"
               placeholder="New Password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3"
+              className="fk-input"
             />
             <ErrorMessage
               name="password"
@@ -95,12 +95,12 @@ export default function ResetPassword() {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-6">
             <Field
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3"
+              className="fk-input"
             />
             <ErrorMessage
               name="confirmPassword"
@@ -111,7 +111,7 @@ export default function ResetPassword() {
 
           <button
             type="submit"
-            className="btn btn-primary w-full"
+            className="fk-orange-btn w-full py-3 text-sm"
           >
             Change Password
           </button>
@@ -119,7 +119,7 @@ export default function ResetPassword() {
           <button
             type="button"
             onClick={() => router.push("/home")}
-            className="btn btn-outline w-full mt-3"
+            className="w-full mt-3 py-3 text-sm font-medium text-[#6366f1]"
           >
             Home
           </button>

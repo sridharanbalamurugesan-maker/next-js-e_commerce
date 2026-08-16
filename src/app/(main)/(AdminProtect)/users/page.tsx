@@ -26,7 +26,7 @@ export default function Users() {
         {field: "address",headerName: "Address",width: 200},
         {field: "mobile",headerName: "Mobile Number",width: 160},
         {field: "isBlock",headerName: "Is Block",width: 120,renderCell: (params) => (
-                <span>
+                <span className={params.row.isBlock ? "text-red-500 font-medium" : "text-[#10b981] font-medium"}>
                     {params.row.isBlock ? "Blocked" : "Active"}
                 </span>
             )},
@@ -99,19 +99,37 @@ export default function Users() {
 
     return (
 
-        <div className="p-5">
-
-            <h2 className="text-2xl font-bold mb-5">
-                Users Page
+        <div className="p-4 bg-[#f8fafc] min-h-[calc(100vh-56px)]">
+            <div className="max-w-[1240px] mx-auto bg-white">
+            <div className="px-5 py-4 border-b border-[#f0f0f0]">
+            <h2 className="text-lg font-medium">
+                Users
             </h2>
+            </div>
 
+            <div className="p-2">
             <DataGrid
                 rows={rows}
                 columns={columns}
                 getRowId={(row) => row._id}
-                pageSizeOptions={[5, 10, 100]}
+                pagination
+                initialState={{
+                  pagination: {
+                    paginationModel: { page: 0, pageSize: 10 },
+                  },
+                }}
+                pageSizeOptions={[10]}
                 autoHeight
+                sx={{
+                  border: "none",
+                  "& .MuiDataGrid-columnHeaders": {
+                    backgroundColor: "#f5f5f5",
+                    fontWeight: 600,
+                  },
+                }}
             />
+            </div>
+            </div>
 
         </div>
     );

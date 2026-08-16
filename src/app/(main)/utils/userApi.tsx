@@ -18,3 +18,21 @@ export const blockUser=async(id:string,{})=>{
     }
     return data?.data;
 }
+export const getProfile=async()=>{
+    let data;
+    try {
+        data=await axiosGet("/api/get-profile");
+    } catch (error) {
+        return false;
+    }
+    return data?.data;
+}
+export const updateProfile=async(payload:unknown)=>{
+    let data;
+    try {
+        data=await axiosPut("/api/update-profile",payload);
+    } catch (error) {
+        return false;
+    }
+    return data?.data;
+}

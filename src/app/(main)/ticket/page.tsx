@@ -30,10 +30,12 @@ export default function Ticket(){
     },[])
     return(
     <>
-    <h3 className="flex justify-center items-center">My Ticket</h3>
-    <div
-              className="flex flex-wrap gap-5"
-            >
+    <div className="bg-[#f8fafc] min-h-[calc(100vh-56px)] p-4">
+      <div className="max-w-[1240px] mx-auto">
+        <div className="bg-white px-5 py-4 mb-4">
+          <h3 className="text-lg font-medium">My Tickets</h3>
+        </div>
+        <div className="flex flex-wrap gap-4">
     
               {ticketData?.map((ticket)=>(
             <TicketCard
@@ -42,7 +44,8 @@ export default function Ticket(){
             ))}
         
             </div>
-            
+      </div>
+    </div>
     
     </>
     )

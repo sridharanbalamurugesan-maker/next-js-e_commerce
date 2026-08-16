@@ -4,7 +4,6 @@ import { register } from '../(main)/utils/AuthApi'
 import { useRouter } from "next/navigation"
 import * as Yup from "yup";
 import { failureLoader, successLoader } from "../(main)/utils/utils";
-import '../register.css';
 
 interface RegisterFormValues{
     name:string;
@@ -48,47 +47,53 @@ const Register=()=>{
             }
     }
     return(
-    <div>
-    <h2>Register Page</h2>
+    <div className="min-h-screen flex items-center justify-center bg-[#f8fafc] px-4 py-10">
+      <div className="w-full max-w-[800px] flex flex-col md:flex-row shadow-lg overflow-hidden">
+        <div className="bg-[#6366f1] text-white p-8 md:w-[340px] flex flex-col justify-between min-h-[420px]">
+          <div>
+            <h2 className="text-3xl font-medium mb-4">Looks like you&apos;re new here!</h2>
+            <p className="text-[#c7d2fe] text-lg leading-7">
+              Sign up with your mobile number to get started
+            </p>
+          </div>
+          <p className="italic font-extrabold text-2xl mt-10">Grabbuy</p>
+        </div>
+        <div className="flex-1 bg-white p-8 md:p-10">
     <Formik
     initialValues={intitalValues}
     validationSchema={validationSchema}
     onSubmit={handleSubmit}>
-        <Form className="Register_Page">
-            <div className="form-group">
-                <label>Name</label>
-                <Field type="text" name="name" placeholder="Enter the name" />
-                <ErrorMessage name="name" component="div" className="error" />
-            </div>
-            <div className="form-group">
-                <label>Email</label>
-                <Field type="email" name="email" placeholder="Enter the mail" />
-                <ErrorMessage name="email" component="div" className="error" />
-            </div>
-            <div className="form-group">
-                <label>mobile</label>
-                <Field type="number" name="mobile" placeholder="Enter the mobile number"/>
-                <ErrorMessage name="mobile" component="div" className="error"/>
-            </div>
-            <div className="form-group">
-                <label>password</label>
-                <Field type="password" name="password" placeholder="Enter the password"/>
-                <ErrorMessage name="password" component="div" className="error"/>
-            </div>
-            <div className="form-group">
-                <label>address</label>
-                <Field type="text" name="address" placeholder="Enter the password"/>
-                <ErrorMessage name="address" component="div" className="error"/>
+        <Form className="space-y-5">
+            <div>
+                <Field type="text" name="name" placeholder="Enter Name" className="fk-input" />
+                <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-                <button className="secondary-btn" type="submit">Register</button>
+                <Field type="email" name="email" placeholder="Enter Email" className="fk-input" />
+                <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             <div>
-                <button className="secondary-btn"  type="button"  onClick={()=>router.push("/login")}>login</button>
+                <Field type="number" name="mobile" placeholder="Enter Mobile number" className="fk-input"/>
+                <ErrorMessage name="mobile" component="div" className="text-red-500 text-sm mt-1"/>
             </div>
+            <div>
+                <Field type="password" name="password" placeholder="Enter Password" className="fk-input"/>
+                <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1"/>
+            </div>
+            <div>
+                <Field type="text" name="address" placeholder="Enter Address" className="fk-input"/>
+                <ErrorMessage name="address" component="div" className="text-red-500 text-sm mt-1"/>
+            </div>
+            <p className="text-xs text-[#64748b]">
+              By continuing, you agree to Grabbuy&apos;s Terms of Use and Privacy Policy.
+            </p>
+            <button className="fk-orange-btn w-full py-3 text-sm" type="submit">Register</button>
+            <button className="w-full bg-white text-[#6366f1] py-3 text-sm font-medium shadow-[0_2px_4px_0_rgba(0,0,0,.2)]"  type="button"  onClick={()=>router.push("/login")}>Existing User? Log in</button>
         </Form>
 
     </Formik>
+        </div>
+      </div>
     </div>
     )
 }
