@@ -10,11 +10,13 @@ export const register=async(payload:unknown)=>{
     return data?.data;
 }
 export const login=async(payload:unknown)=>{
-    let data;
     try {
-        data=await axiosPost('/api/login',payload)
-    } catch (error) {
-        return false
+        const data=await axiosPost('/api/login',payload)
+        return data?.data;
+    } catch (error: any) {
+        const message = error?.response?.data?.message || "Login failed";
+        const err = new Error(message) as Error & { status?: number };
+        err.status = error?.response?.status;
+        throw err;
     }
-    return data?.data;
 }

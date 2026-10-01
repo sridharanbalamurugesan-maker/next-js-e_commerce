@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { getLoginData } from "./utils/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Script from "next/script";
 
 export default function MainLayout({
@@ -12,13 +12,17 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   useEffect(() => {
-    const user = getLoginData();
-    if (!user) {
+    const publicPaths = ["/home", "/viewProduct"];
+    const isPublic = publicPaths.some(
+      (path) => pathname === path || pathname.startsWith(`${path}/`)
+    );
+    if (isPublic) return;
+    if (!getLoginData()) {
       router.push("/login");
-      return;
     }
-  }, [router]);
+  }, [pathname, router]);
 
   return (
     <>

@@ -53,7 +53,7 @@ export default function ForgotPage(){
         <form onSubmit={handleSubmit} className="flex-1 bg-white p-8 md:p-10 flex flex-col gap-6">
              <input  className="fk-input" type="email" value={email}  placeholder="Enter your email" onChange={(e)=>{setEmail(e.target.value)}}/>
             
-            <button type="submit" className="fk-orange-btn py-3 text-sm">Send Reset Link</button>
+            <button type="submit" className="fk-reset-btn py-3 text-sm">Send Reset Link</button>
             <button type="button" className="w-full bg-white text-[#6366f1] py-3 text-sm font-medium shadow-[0_2px_4px_0_rgba(0,0,0,.2)]" onClick={handleClick}>{user?"Home":"Login"}</button>
         </form>
       </div>

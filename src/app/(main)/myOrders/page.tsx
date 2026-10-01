@@ -63,12 +63,12 @@ export default function MyOrders(){
                 <img src={params.value}
                 alt="image"
                 className="cursor-pointer"
-                onClick={() => router.push(`/viewProduct/${params.row.productId}`)}
+                onClick={() => router.push(`/viewProduct?id=${params.row.productId}`)}
                 style={{width:50,height:50,objectFit:"cover"}}/>)},
         {field:"product", headerName:"Product",flex:1,minWidth:160,renderCell:(params)=>(
                 <button
                   className="text-[#6366f1] text-left"
-                  onClick={() => router.push(`/viewProduct/${params.row.productId}`)}
+                  onClick={() => router.push(`/viewProduct?id=${params.row.productId}`)}
                 >
                   {params.value}
                 </button>

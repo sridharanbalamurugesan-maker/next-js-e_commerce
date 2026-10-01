@@ -84,8 +84,18 @@ export default function navbar(){
   const handleProduct=()=>{
     router.push('/product');
   }
+  const handleAdvertisement=()=>{
+    router.push('/advertisement');
+  }
   const handleCart=()=>{
+    if(!getLoginData()){
+      router.push('/login');
+      return;
+    }
     router.push('/cart');
+  }
+  const handleLogin=()=>{
+    router.push('/login');
   }
   const handleMyOrders=()=>{
     router.push('/myOrders')
@@ -109,6 +119,11 @@ export default function navbar(){
   const handleProfile=()=>{
     router.push('/profile');
   }
+  const closeDropdown=()=>{
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  }
 
     return(<>
     <header className="sticky top-0 z-50 bg-[#6366f1] shadow-md overflow-visible">
@@ -125,7 +140,7 @@ export default function navbar(){
             <div tabIndex={0} role="button" className="text-white font-medium text-sm h-9 px-3 flex items-center rounded hover:bg-[#4f46e5] cursor-pointer">
               Menu
             </div>
-            <ul tabIndex={0} className="dropdown-content menu bg-white rounded-sm z-[100] w-52 p-1 shadow-lg text-[#0f172a] mt-2">
+            <ul tabIndex={0} onClick={closeDropdown} className="dropdown-content menu bg-white rounded-sm z-[100] w-52 p-1 shadow-lg text-[#0f172a] mt-2">
               <li><button onClick={handleHome}>Home</button></li>
               {userData?.role=="69e08e7c2d1e81b6cc670c3c"&&(
                 <>
@@ -136,6 +151,7 @@ export default function navbar(){
                 <>
                 <li><button onClick={handleClick}>Category</button></li>
                 <li><button onClick={handleProduct}>Product</button></li>
+                <li><button onClick={handleAdvertisement}>Advertisement</button></li>
                 <li><button onClick={handleUsers}>users</button></li>
                 <li><button onClick={handleView}>view Tickets</button></li>
                </>
@@ -178,6 +194,7 @@ export default function navbar(){
             Cart
           </button>
 
+          {userData ? (
           <div className="dropdown dropdown-end dropdown-bottom">
             <div tabIndex={0} role="button" className="h-9 px-2 flex items-center gap-2 text-white font-medium text-sm rounded hover:bg-[#4f46e5] cursor-pointer">
               <div className="w-7 h-7 rounded-full bg-white overflow-hidden shrink-0">
@@ -191,6 +208,7 @@ export default function navbar(){
             </div>
             <ul
               tabIndex={0}
+              onClick={closeDropdown}
               className="menu menu-sm dropdown-content bg-white rounded-sm z-[100] mt-2 w-56 p-2 shadow-lg text-[#0f172a]">
               <li>
                 <button onClick={handleProfile} className="justify-between">
@@ -205,6 +223,11 @@ export default function navbar(){
               <li><button onClick={handleLogout}>Logout</button></li>
             </ul>
           </div>
+          ) : (
+            <button type="button" onClick={handleLogin} className="h-9 px-3 text-white font-medium text-sm rounded hover:bg-[#4f46e5] cursor-pointer">
+              Login
+            </button>
+          )}
         </div>
         <SupportModal/>
       </div>

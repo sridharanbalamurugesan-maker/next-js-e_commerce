@@ -15,7 +15,7 @@ interface ProductCardProps {
 export default function({product}:ProductCardProps){
     const router=useRouter();
     const handleClick=()=>{
-        router.push(`/viewProduct/${product._id}`)
+        router.push(`/viewProduct?id=${product._id}`)
     }
     return(
     <>
@@ -24,13 +24,13 @@ export default function({product}:ProductCardProps){
       onClick={handleClick}
     >
 
-      <div className="h-[180px] flex items-center justify-center mb-3">
+      <div className="aspect-square w-full bg-white p-3 mb-3 flex items-center justify-center">
         <img
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${product.image}`}
           alt={product.name}
           width={250}
-          height={150}
-          className="max-h-[180px] w-auto object-contain"
+          height={250}
+          className="h-full w-full object-contain object-center"
         />
       </div>
 

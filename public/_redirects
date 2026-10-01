@@ -1,0 +1,1 @@
+/resetPassword/:token /resetPassword/confirm?token=:token 200

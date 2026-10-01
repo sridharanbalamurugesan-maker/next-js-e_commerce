@@ -1,19 +1,23 @@
 import axios from 'axios'
 
 const api=axios.create({
-    baseURL:process.env.NEXT_PUBLIC_API_BASE_URL||"https://nodejs-e-commerce-epry.onrender.com"
+    baseURL:process.env.NEXT_PUBLIC_API_BASE_URL||"https://api-ecommerce.softean.com"
 })
 console.log("BASE URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
 api.interceptors.request.use((req)=>{
+    if (typeof window !== "undefined"){
     const token=localStorage.getItem("token");
     if(token){
         req.headers.Authorization=`Bearer ${token}`;
-    }
+    }}
     return req;
 });
 api.interceptors.response.use((res)=>res,(error)=>{
     console.log("INTERCEPTOR ERROR:", error.response);
-    if(error.response&&error.response.status===401){
+    const status = error.response?.status;
+    const url = error.config?.url || "";
+    const isLoginRequest = url.includes("/api/login");
+    if(typeof window !== "undefined" && status===401 && !isLoginRequest){
         localStorage.removeItem("token");
         window.location.href="/login"
     }

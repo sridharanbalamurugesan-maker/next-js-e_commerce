@@ -87,7 +87,7 @@ const Register=()=>{
             <p className="text-xs text-[#64748b]">
               By continuing, you agree to Grabbuy&apos;s Terms of Use and Privacy Policy.
             </p>
-            <button className="fk-orange-btn w-full py-3 text-sm" type="submit">Register</button>
+            <button className="fk-login-btn w-full py-3 text-sm" type="submit">Register</button>
             <button className="w-full bg-white text-[#6366f1] py-3 text-sm font-medium shadow-[0_2px_4px_0_rgba(0,0,0,.2)]"  type="button"  onClick={()=>router.push("/login")}>Existing User? Log in</button>
         </Form>
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { resetPassword, validateToken } from "../../(main)/utils/resetPasswordApi";
 import { failureLoader, successLoader } from "../../(main)/utils/utils";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -12,8 +12,8 @@ interface ResetPasswordForm {
   confirmPassword: string;
 }
 
-export default function ResetPassword() {
-  const { token } = useParams();
+function ResetPasswordConfirmContent() {
+  const token = useSearchParams().get("token");
   const router = useRouter();
   const [isValid, setIsValid] = useState(false);
 
@@ -147,5 +147,21 @@ export default function ResetPassword() {
       </Formik>
       </div>
     </div>
+  );
+}
+
+export default function ResetPasswordConfirm() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center min-h-screen bg-[#f8fafc]">
+          <h2 className="text-lg font-medium text-[#64748b]">
+            Checking reset link...
+          </h2>
+        </div>
+      }
+    >
+      <ResetPasswordConfirmContent />
+    </Suspense>
   );
 }

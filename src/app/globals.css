@@ -121,6 +121,30 @@ body {
   opacity: 0.55;
   cursor: not-allowed;
 }
+.fk-login-btn {
+  background: var(--app-badge) !important;
+  color: #1e1b4b !important;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+.fk-login-btn:hover {
+  background: var(--app-warning) !important;
+  color: #1e1b4b !important;
+}
+.fk-reset-btn {
+  background: #eab308 !important;
+  color: #1e1b4b !important;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+.fk-reset-btn:hover {
+  background: #ca8a04 !important;
+  color: #1e1b4b !important;
+}
 
 .fk-yellow-btn {
   background: var(--app-warning);

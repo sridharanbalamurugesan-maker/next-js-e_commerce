@@ -31,17 +31,23 @@ const Login = () => {
 
     try {
       const response = await login(values);
-      console.log("login response", response);
-      localStorage.setItem("token", response.token);
-     if (response.success === true) {
+      // console.log("login response", response);
+      if (response.success === true) {
+        localStorage.setItem("token", response.token);
         successLoader(response.message);
         setLoginData(response.data);
-        router.push("/home");
+        const next = new URLSearchParams(window.location.search).get("next");
+        const dest = next && next.startsWith("/") && !next.startsWith("//") ? next : "/home";
+        router.push(dest);
       } else {
-        failureLoader(response.message || "Login failed");
+        failureLoader("Invalid email or password" );
       }
     } catch (error: any) {
-      failureLoader(error.message);
+      if (error?.status === 500) {
+        failureLoader("Server error. Please try again later.");
+      } else {
+        failureLoader("Invalid email or password");
+      }
     }
   };
   const ForgotPassword=()=>{
@@ -97,7 +103,7 @@ const Login = () => {
             </p>
             <button
               type="submit"
-              className="fk-orange-btn w-full py-3 text-sm"
+              className="fk-login-btn w-full py-3 text-sm"
             >
               Login
             </button>
